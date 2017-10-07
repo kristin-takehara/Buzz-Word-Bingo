@@ -2,34 +2,13 @@
 
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const bodyParser = require('body-parser');
+const buzzwords = require('./buzzword.js');
 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
+app.use('/', buzzwords); //serve index.html (located in the public directory)
 
-
-app.get('/', (req, res) => {
-  res.send();
-});
-
-app.get('/buzzwords', (req, res) => {
-  let buzzwords = { "buzzwords": [] };
-  for (var i = 0; i < buzzwords.length; i++) {
-
-  }
-  res.send(200, {
-    'Content-Type': 'application/json',
-    'success': true
-  });
-});
-
-// app.post('/buzzword', (req, res) => {
-//   res.send(200, {
-//     'Content-Type': 'application/json',
-//     'success': true
-//   });
-// });
-
-app.listen(3000, function () {
+app.listen(3000);
   console.log('Buzz-Word-Bingo listening on port 3000!');
-});
