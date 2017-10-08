@@ -19,9 +19,12 @@ router.post('/reset', (req, res) => {
   if(req.body.reset === true || req.body.reset === 'true') { //set RESET to be TRUE
     userScore.score = 0; //set score to 0
     buzzArr.length = 0; //set to 0 buzzwords
+    console.log('New Start');
     res.status(200).json({ success: true });
   } else { //SET SUCCESS to be TRUE
+    console.log('Unable to Reset. Try Again.');
     res.status(400).json({ success: false });
+    res.end();
   }
 });
 
@@ -79,6 +82,8 @@ router.route('/buzzwords')
 
   res.status(400).json({ success: false });
 })
+
+//DELETE /buzzword
 .delete((req, res) => {
   const { buzzWord } = req.body;
   const index = buzzArr.findIndex(word => word.buzzWord === buzzWord);
